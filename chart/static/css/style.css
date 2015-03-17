@@ -1,16 +1,17 @@
-h2 {
-  background: pink;
-  font-size: 1.4rem;
+h2, ul, a {
+  color:#FFFFFF;
+  text-shadow: 1px 1px 2px #020824, 0 0 1em #020824;
+  font-family: arial, verdana, sans-serif
+}
+
+h2, ul {
+  background: #0080ff;
   margin: 12px 8px;
   padding: 6px 8px;
   margin-right: 80%;
 }
-ol {
-  background: hotpink;
-  /*font-size: 1.4rem;*/
-  margin: 12px 8px;
-  margin-right: 80%;
-}
-#error {
-    color: red;
+
+#error p {
+    background: red;
+    margin-right: 80%;
 }

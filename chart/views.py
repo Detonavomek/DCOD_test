@@ -1,9 +1,7 @@
 # -*- coding:utf-8 -*-
 import json
 
-from django.shortcuts import render
 from django.shortcuts import render_to_response
-from django.http import HttpResponse, JsonResponse
 
 import parser.model
 from models import Region, Country
@@ -55,28 +53,17 @@ def base(request):
     return render_to_response("base.html", locals())
 
 
-def show_region(request, region):
+def show_region(request, region_name):
     regions = [region.name for region in Region.objects.all()]
     data = dict()
     try:
-        region_db = Region.objects.get(name=region)
+        region_db = Region.objects.get(name=region_name)
         countries = {country.name: country.value
                      for country in region_db.country_set.all()}
-        data[region] = countries
-    except Region.DoesNotExist, error:
-        return render_to_response(request, locals())
+        data['region_name'] = region_name
+        data['countries'] = countries
+    except Region.DoesNotExist, e:
+        error = e
     finally:
-        data = json.dumps(data)
-        # regions = [region.name for region in Region.objects.all()]
+        obj_json = json.dumps(data)
         return render_to_response("regions.html", locals())
-
-# def show_regions(request, region_name):
-#     region = Region.objects.get(name=region_name)
-#     countries = region.country_set.all()
-#     data = {region.name:
-#                 {country.name: country.value for country in countries}}
-#     data = json.dumps(data)
-#     # return HttpResponse(data, content_type='application/json')
-#     # return HttpResponse(data, mimetype='application/json')
-#     return JsonResponse(data)
-#     # return render_to_response("base.html", data, content_type='application/json')

@@ -1,3 +1,45 @@
 {% extends "base.html" %}
-{% block title %}{{ region }}{% endblock %}
+{% load staticfiles %}
+{% block head %}
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type='text/css' href="{% static "css/style.css" %}" />
+    <title>Chart</title>
+    <script type="text/javascript" src="{% static "js/jquery-2.1.3.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/highcharts.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/chart.js" %}"></script>
+
+    <script type="text/javascript">
+        var data = jQuery.parseJSON('{{ obj_json|safe }}');
+        var region_name = data['region_name'];
+        var countries = data['countries'];
+        var countries_parsed = [];
+        Object.getOwnPropertyNames(countries).forEach(function(name) {
+            countries_parsed.push([name, countries[name]]);
+        });
+        $(document).ready(function () {
+
+            $("div h2").click(function (event) {
+                $('#regions').slideToggle('slow', changeClass);
+                event.preventDefault();
+            });
+
+            chart(region_name, countries_parsed);
+        });
+
+    </script>
+{% endblock %}
+{% block regions  %}
+<h2>Regions</h2>
+
+                <ul id="regions">
+                {% for region in regions %}
+                        <li><a href="{% url 'region' region %}">{{ region }}</a></li>
+                {% endfor %}
+                </ul>
+{% endblock %}
+{% block error %}
+    {% if error %}
+    <p>{{ error }}</p>
+    {% endif %}
+{% endblock %}
 
