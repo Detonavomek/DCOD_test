@@ -1,0 +1,16 @@
+h2 {
+  background: pink;
+  font-size: 1.4rem;
+  margin: 12px 8px;
+  padding: 6px 8px;
+  margin-right: 80%;
+}
+ol {
+  background: hotpink;
+  /*font-size: 1.4rem;*/
+  margin: 12px 8px;
+  margin-right: 80%;
+}
+#error {
+    color: red;
+}

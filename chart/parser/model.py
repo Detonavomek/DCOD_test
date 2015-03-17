@@ -13,8 +13,7 @@ class Parser(object):
         self.data, self.structure = self.parse()
 
     def parse(self):
-        data = []
-        structure = []
+        data, structure = [], []
         try:
             with open(self.file) as f:
                 content = json.load(f)
