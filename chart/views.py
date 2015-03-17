@@ -1,7 +1,9 @@
 # -*- coding:utf-8 -*-
 import json
+import collections
 
 from django.shortcuts import render_to_response
+from django.shortcuts import redirect
 
 import parser.model
 from models import Region, Country
@@ -48,18 +50,17 @@ def add_country(region, info):
         country.save()
 
 
-def base(request):
-    regions = [region.name for region in Region.objects.all()]
-    return render_to_response("base.html", locals())
+def show_region(request, region_name=''):
+    regions = sorted([region.name for region in Region.objects.all()])
+    if (not region_name) and regions:
+        region_name = regions[0]
 
-
-def show_region(request, region_name):
-    regions = [region.name for region in Region.objects.all()]
     data = dict()
     try:
         region_db = Region.objects.get(name=region_name)
         countries = {country.name: country.value
                      for country in region_db.country_set.all()}
+        countries = collections.OrderedDict(sorted(countries.items()))
         data['region_name'] = region_name
         data['countries'] = countries
     except Region.DoesNotExist, e:

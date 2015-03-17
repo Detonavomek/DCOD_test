@@ -26,14 +26,14 @@ function chart(region, countries) {
         yAxis: {
             min: 0,
             title: {
-                text: 'Population (millions)'
+                text: 'Популяция (millions)'
             }
         },
         legend: {
             enabled: false
         },
         tooltip: {
-            pointFormat: 'Rabbit Population in 2015: <b>{point.y:.1f} millions</b>'
+            pointFormat: 'Популяция кроликов в 2015г: <b>{point.y:.1f} millions</b>'
         },
         series: [
             {
